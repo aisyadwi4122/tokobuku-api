@@ -3,83 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
-use App\Http\Requests\StoreBukuRequest;
-use App\Http\Requests\UpdateBukuRequest;
+use Illuminate\Http\Request;
 
 class BukuController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Buku::all();
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreBukuRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(StoreBukuRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'penulis' => 'required|string|max:255',
+            'harga' => 'required|integer|min:0',
+            'stok' => 'required|integer|min:0',
+            'kategori_id' => 'required|integer|exists:kategoris,id'
+        ]);
+
+        $buku = Buku::create($request->all());
+        return response()->json($buku, 201);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Buku  $buku
-     * @return \Illuminate\Http\Response
      */
-    public function show(Buku $buku)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Buku  $buku
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Buku $buku)
+    public function show(string $id)
     {
         //
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateBukuRequest  $request
-     * @param  \App\Models\Buku  $buku
-     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBukuRequest $request, Buku $buku)
+    public function update(Request $request, string $id)
     {
         //
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Buku  $buku
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Buku $buku)
+    public function destroy(string $id)
     {
         //
     }
