@@ -19,7 +19,9 @@ use App\Http\Controllers\BukuController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     // return $request->user();
 // });
-
+Route::get('/bukus/search', [BukuController::class,'search']);
 Route::apiResource('kategoris',KategoriController::class);
 Route::apiResource('bukus',BukuController::class);
-
+// Route::get('/bukus/{id}',[BukuController::class,'show']);
+// Route::put('bukus/{id}', [BukuController::class, 'update']);
+// Route::delete('/bukus/{id}',[BukuController::class, 'destroy']);
